@@ -54,7 +54,11 @@
 
 -(NSNumber*)isAPIAvailable:(id)args
 {
-	return NUMBOOL([self iOS8_orAbove]);
+    LAContext *myContext = [[[LAContext alloc] init] autorelease];
+    NSError *authError = nil;
+
+    return NUMBOOL([self iOS8_orAbove] && [myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]
+);
 }
 
 /**
